@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Panel Admin Banboo.id</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="<?php echo base_url('assets/admin/vendor/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="<?php echo base_url('assets/admin/js/sb-admin.css') ?>" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="<?php echo base_url('assets/admin/css/plugins/morris.css') ?>" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="<?php echo base_url('assets/admin/vendor/font-awesome/css/font-awesome.min.css') ?>" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Panel-Admin Banboo.id</a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Welcome <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <?php 
+                            if ($this->session->has_userdata('username')) {
+                                echo '
+                                    <li>
+                                        <a href="'.base_url('index.php/admin').'">'.$this->session->userdata('nama').'
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="'.base_url('index.php/admin/setting').'"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                                    </li>
+                                    <li>
+                                        <a href=" '.base_url('index.php/admin/logout').'"><i class="fa fa-fw fa-gear"></i>Logout
+                                        </a>
+                                    </li>
+                                    ';
+                                    }
+                            else{
+                                echo '
+                                    <li>
+                                        <a href="'.base_url('index.php/admin/setting').'"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                                    </li>
+                                    <li>
+                                        <a href=" '.base_url('index.php/admin/logout').'"><i class="fa fa-fw fa-gear"></i>Logout
+                                        </a>
+                                    </li>
+                                    ';
+                                    }
+                        ?>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li class="active">
+                        <a href="<?php echo base_url('index.php/admin/login') ?>"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('index.php/admin/product') ?>"><i class="fa fa-fw fa-table"></i> Product</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('index.php/admin/add') ?>"><i class="fa fa-fw fa-edit"></i> Input Product</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('index.php/admin/add') ?>"><i class="fa fa-fw fa-edit"></i> Order List</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+    <!-- /#wrapper -->
+
+
+    <section class="product">
+        <div class="container">
+            <h1>Detail</h1>
+            <hr>
+            <?php foreach ($produk as $p) { 
+                $kategori = $p['kategori'];
+                ?>
+            <div class="produk">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img class="main-img" src="<?php echo $p['gambar_produk'] ?>">
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <img class="sub-img" src="<?php echo base_url('assets/produk/image/5.jpg') ?>">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <h1><?php echo $p['nama_produk'] ?></h1>
+                        <h3><?php echo 'Rp. '.number_format($p['harga_produk'], 2, ',', '.'); ?></h3>
+                        <br>
+                        <form>
+
+                            <p class="col-md-3">
+                                <span>Jumlah : </span>
+                                <input value="1" onkeypress="return hanyaAngka(event)" placeholder="Jumlah" class="form-control" class="form-control" >
+                            </p>
+
+                            <p class="col-md-3">
+                                <span>Warna : </span>
+                                <select class="form-control">
+                                    <option>Merah</option>
+                                    <option>Biru</option>
+                                    <option>Hijau</option>
+                                </select>                       
+                            </p>
+                        </form>
+                        <br>
+                        <p class="col-md-12">
+                            <h1>Deskripsi Produk : </h1>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                        <button style="height: 50px; margin-left: 400px;" class="btn btn-primary .btn-outline">Beli Sekarang</button>
+                    </div>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="produk">
+        <div class="container">
+            <h3>Produk Terkait</h3>
+                            <hr>
+            <div class="row">
+            <?php foreach ($produkTerkait as $t) { ?>
+                <div class="col-md-3">
+                    <div class="box">
+                        <div class="img">
+                            <img style="max-height: 170px;" src="<?php echo $t['gambar_produk'] ?>">
+                        </div>
+                        <div class="caption">
+                        <p><span class="glyphicon glyphicon-tags"/> <?php echo $p['kategori'] ?></p>
+                            <h3><?php echo $t['nama_produk'] ?></h3>
+                            <p><?php echo 'Rp. '.number_format($p['harga_produk'], 2, ',', '.'); ?></p>
+                            <a class="btn btn-default" href="<?php echo base_url('marketplace/detail/'.$p['id_produk']); ?>">Detail</a>                         
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
+            </div>
+        </div>
+    </section>
+
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="<?php echo base_url('assets/admin/vendor/jquery/jquery.min.js') ?>"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="<?php echo base_url('assets/admin/vendor/bootstrap/js/bootstrap.min.js') ?>"></script>
+    <script src="<?php echo base_url('assets/admin/vendor/metisMenu/metisMenu.min.js') ?>"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="<?php echo base_url('assets/admin/vendor/raphael/raphael.min.js') ?>"></script>
+    <script src="<?php echo base_url('assets/admin/vendor/morrisjs/morris.min.js') ?>"></script>
+    <script src="<?php echo base_url('assets/admin/data/morris-data.js') ?>"></script>
+    <script src="<?php echo base_url('assets/admin/dist/js/sb-admin-2.js') ?>"></script>
+
+</body>
+
+</html>
